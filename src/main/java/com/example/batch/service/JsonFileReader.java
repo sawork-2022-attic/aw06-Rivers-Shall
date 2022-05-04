@@ -6,11 +6,9 @@ import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.core.io.ClassPathResource;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 
 public class JsonFileReader implements StepExecutionListener, ItemReader<JsonNode> {
 
@@ -27,7 +25,12 @@ public class JsonFileReader implements StepExecutionListener, ItemReader<JsonNod
     }
 
     private void initReader() throws FileNotFoundException {
-        File file = new File(fileName);
+        File file = null;
+        try {
+            file = new ClassPathResource(fileName).getFile();
+        } catch (IOException e) {
+            file = new File(fileName);
+        }
         reader = new BufferedReader(new FileReader(file));
     }
 
@@ -52,7 +55,7 @@ public class JsonFileReader implements StepExecutionListener, ItemReader<JsonNod
         String line = reader.readLine();
 
         if (line != null)
-            return objectMapper.readTree(reader.readLine());
+            return objectMapper.readTree(line);
         else
             return null;
     }

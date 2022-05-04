@@ -7,7 +7,6 @@ import com.example.batch.service.ProductWriter;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -15,13 +14,12 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 
-@Configuration
-@EnableBatchProcessing
+//@Configuration
+//@EnableBatchProcessing
 public class BatchConfig {
 
 
@@ -34,7 +32,7 @@ public class BatchConfig {
 
     @Bean
     public ItemReader<JsonNode> itemReader() {
-        return new JsonFileReader("/home/java/meta_Clothing_Shoes_and_Jewelry.json");
+        return new JsonFileReader("data/example_data/meta_Magazine_Subscriptions_100.json");
     }
 
     @Bean

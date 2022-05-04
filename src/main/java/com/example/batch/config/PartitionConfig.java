@@ -25,8 +25,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
-//@Configuration
-//@EnableBatchProcessing
+@Configuration
+@EnableBatchProcessing
 public class PartitionConfig {
 
     @Autowired
@@ -51,7 +51,7 @@ public class PartitionConfig {
     public Partitioner partitioner() throws Exception {
         MultiResourcePartitioner partitioner = new MultiResourcePartitioner();
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        partitioner.setResources(resolver.getResources("file:/home/java/meta_Clothing_Shoes_and_Jewelry/x*"));
+        partitioner.setResources(resolver.getResources("data/*.json"));
         return partitioner;
     }
 
